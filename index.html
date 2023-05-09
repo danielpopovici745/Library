@@ -24,10 +24,42 @@
       </tr>
     </table>
     <div class="bookForm">
-      <form>
-        <label for=""></label>
+      <form class="addBookForm" onsubmit=" return false">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Title"
+          required
+        />
+        <label for="author">Author</label>
+        <input
+          type="text"
+          name="author"
+          id="author"
+          placeholder="Author"
+          required
+        />
+        <label for="pages">Pages</label>
+        <input
+          type="text"
+          name="pages"
+          id="pages"
+          placeholder="Pages"
+          required
+        />
+        <label for="completed">Completed</label>
+        <input
+          type="text"
+          name="completed"
+          id="completed"
+          placeholder="Y or N"
+          required
+        />
+        <button type="submit" class="addBookButton">Add Book</button>
       </form>
     </div>
-    <source src="./script.js" />
+    <script src="./script.js"></script>
   </body>
 </html>
