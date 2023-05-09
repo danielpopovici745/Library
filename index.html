@@ -10,18 +10,14 @@
   </head>
   <body>
     <table class="library">
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Pages</th>
-        <th>Completed</th>
-      </tr>
-      <tr>
-        <td>The Giver</td>
-        <td>Lois Lowry</td>
-        <td>240</td>
-        <td>Yes</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Pages</th>
+          <th>Completed</th>
+        </tr>
+      </thead>
     </table>
     <div class="bookForm">
       <form class="addBookForm" onsubmit=" return false">
@@ -57,6 +53,7 @@
           placeholder="Y or N"
           required
         />
+        <button type="reset">Clear</button>
         <button type="submit" class="addBookButton">Add Book</button>
       </form>
     </div>
