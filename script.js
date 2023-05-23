@@ -41,36 +41,31 @@ function addBookToLibrary() {
 }
 
 function updateTable() {
-  // const addedBook = myLibrary[myLibrary.length - 1];
-
-  if (myLibrary.length > 1) {
-    clearTable();
-    myLibrary.forEach((book) => {
-      const row = tableBody.insertRow(-1);
-      const arrayBookValues = Object.values(book);
-      arrayBookValues.forEach((value) => {
-        const cell = row.insertCell();
-        cell.appendChild(document.createTextNode(value));
-      });
-      addRemoveBookButton(row);
-    });
-  } else {
-    const arrayBookValues = Object.values(myLibrary[0]);
+  clearTable();
+  myLibrary.forEach((book) => {
     const row = tableBody.insertRow(-1);
+    const arrayBookValues = Object.values(book);
     arrayBookValues.forEach((value) => {
       const cell = row.insertCell();
       cell.appendChild(document.createTextNode(value));
     });
-    addRemoveBookButton(row);
-  }
+    addRemoveBookButton(row, myLibrary.indexOf(book));
+  });
 }
 
-function addRemoveBookButton(row) {
+function addRemoveBookButton(row, index) {
   const cell = row.insertCell();
   const removeButton = document.createElement("button");
-  removeButton.className = "removeButton";
-  removeButton.setAttribute("data-BookID", myLibrary.length - 1);
+  removeButton.setAttribute("data-BookID", index);
+  removeButton.addEventListener("click", () => {
+    removeBook(removeButton.getAttribute("data-BookID"));
+  });
   cell.appendChild(removeButton);
+}
+
+function removeBook(BookID) {
+  myLibrary.splice(BookID, 1);
+  updateTable();
 }
 function clearTable() {
   const numOfRows = tableBody.querySelectorAll("tr").length;
