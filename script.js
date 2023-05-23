@@ -41,10 +41,11 @@ function updateTable() {
   myLibrary.forEach((book) => {
     const row = tableBody.insertRow(-1);
     const arrayBookValues = Object.values(book);
-    arrayBookValues.forEach((value) => {
+    for (let index = 0; index < 3; index += 1) {
       const cell = row.insertCell();
-      cell.appendChild(document.createTextNode(value));
-    });
+      cell.appendChild(document.createTextNode(arrayBookValues[index]));
+    }
+    addCompletedCheckbox(row);
     addRemoveBookButton(row, myLibrary.indexOf(book));
   });
 }
@@ -59,6 +60,15 @@ function addRemoveBookButton(row, index) {
   });
   // appends the button to the new cell created in the row
   cell.appendChild(removeButton);
+}
+
+function addCompletedCheckbox(row) {
+  const completedCheckbox = document.createElement("input");
+  completedCheckbox.type = "checkbox";
+  completedCheckbox.id = "completed";
+  completedCheckbox.name = "completed";
+  const cell = row.insertCell();
+  cell.appendChild(completedCheckbox);
 }
 
 function removeBook(index) {
