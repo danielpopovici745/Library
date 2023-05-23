@@ -1,5 +1,5 @@
 const myLibrary = [];
-const table = document.querySelector(".library");
+const tableBody = document.querySelector(".tableBody");
 document.querySelector(".addBookButton").onclick = addBookToLibrary;
 
 function Book(title, author, pages, read) {
@@ -41,7 +41,7 @@ function addBookToLibrary() {
 
 function addBookToTable() {
   const addedBook = myLibrary[myLibrary.length - 1];
-  const row = table.insertRow();
+  const row = tableBody.insertRow(-1);
   Object.values(addedBook).forEach((value) => {
     const td = row.insertCell();
     td.appendChild(document.createTextNode(value));
