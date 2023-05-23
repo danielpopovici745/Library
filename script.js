@@ -1,5 +1,4 @@
 const myLibrary = [];
-const table = document.querySelector(".library");
 const tableBody = document.querySelector(".tableBody");
 document.querySelector(".addBookButton").onclick = addBookToLibrary;
 
@@ -9,10 +8,6 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = read;
 }
-
-Book.prototype.info = function info() {
-  return `${this.title}, ${this.author}, ${this.pages}, ${this.read}`;
-};
 
 function addBookToLibrary() {
   const addBookFormInputs = document.querySelectorAll(".addBookForm input");
@@ -42,6 +37,7 @@ function addBookToLibrary() {
 
 function updateTable() {
   clearTable();
+  // this function goes through each value in each object in myLibrary and displays it in a table.
   myLibrary.forEach((book) => {
     const row = tableBody.insertRow(-1);
     const arrayBookValues = Object.values(book);
@@ -57,14 +53,17 @@ function addRemoveBookButton(row, index) {
   const cell = row.insertCell();
   const removeButton = document.createElement("button");
   removeButton.setAttribute("data-BookID", index);
+  // calls removeBook and passes into it the data attribute of the button that was pressed
   removeButton.addEventListener("click", () => {
     removeBook(removeButton.getAttribute("data-BookID"));
   });
+  // appends the button to the new cell created in the row
   cell.appendChild(removeButton);
 }
 
-function removeBook(BookID) {
-  myLibrary.splice(BookID, 1);
+function removeBook(index) {
+  // removes the book using its index from myLibrary
+  myLibrary.splice(index, 1);
   updateTable();
 }
 function clearTable() {
