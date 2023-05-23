@@ -1,4 +1,5 @@
 const myLibrary = [];
+const table = document.querySelector(".library");
 const tableBody = document.querySelector(".tableBody");
 document.querySelector(".addBookButton").onclick = addBookToLibrary;
 
@@ -35,15 +36,46 @@ function addBookToLibrary() {
     );
     // send book object to users library array for storage and then will be added to the table for the user to view
     myLibrary.push(book);
-    addBookToTable();
+    updateTable();
   }
 }
 
-function addBookToTable() {
-  const addedBook = myLibrary[myLibrary.length - 1];
-  const row = tableBody.insertRow(-1);
-  Object.values(addedBook).forEach((value) => {
-    const td = row.insertCell();
-    td.appendChild(document.createTextNode(value));
-  });
+function updateTable() {
+  // const addedBook = myLibrary[myLibrary.length - 1];
+
+  if (myLibrary.length > 1) {
+    clearTable();
+    myLibrary.forEach((book) => {
+      const row = tableBody.insertRow(-1);
+      const arrayBookValues = Object.values(book);
+      arrayBookValues.forEach((value) => {
+        const cell = row.insertCell();
+        cell.appendChild(document.createTextNode(value));
+      });
+      addRemoveBookButton(row);
+    });
+  } else {
+    const arrayBookValues = Object.values(myLibrary[0]);
+    const row = tableBody.insertRow(-1);
+    arrayBookValues.forEach((value) => {
+      const cell = row.insertCell();
+      cell.appendChild(document.createTextNode(value));
+    });
+    addRemoveBookButton(row);
+  }
+}
+
+function addRemoveBookButton(row) {
+  const cell = row.insertCell();
+  const removeButton = document.createElement("button");
+  removeButton.className = "removeButton";
+  removeButton.setAttribute("data-BookID", myLibrary.length - 1);
+  cell.appendChild(removeButton);
+}
+function clearTable() {
+  const numOfRows = tableBody.querySelectorAll("tr").length;
+  // deletes each row in table body using its index
+  for (let index = numOfRows - 1; index >= 0; index -= 1) {
+    tableBody.deleteRow(index);
+  }
 }
