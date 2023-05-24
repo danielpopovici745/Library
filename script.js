@@ -23,11 +23,13 @@ function addBookToLibrary() {
     )
   ) {
     // create an object with the values from bookFormArrayValues
+
+    const bookRead = document.querySelector("#formCompleted").checked;
     const book = new Book(
       bookFormArrayValues[0],
       bookFormArrayValues[1],
       bookFormArrayValues[2],
-      bookFormArrayValues[3]
+      bookRead
     );
     // send book object to users library array for storage and then will be added to the table for the user to view
     myLibrary.push(book);
@@ -45,7 +47,7 @@ function updateTable() {
       const cell = row.insertCell();
       cell.appendChild(document.createTextNode(arrayBookValues[index]));
     }
-    addCompletedCheckbox(row);
+    addCompletedCheckbox(row, myLibrary.indexOf(book));
     addRemoveBookButton(row, myLibrary.indexOf(book));
   });
 }
@@ -54,6 +56,7 @@ function addRemoveBookButton(row, index) {
   const cell = row.insertCell();
   const removeButton = document.createElement("button");
   removeButton.setAttribute("data-BookID", index);
+  removeButton.textContent = "Remove";
   // calls removeBook and passes into it the data attribute of the button that was pressed
   removeButton.addEventListener("click", () => {
     removeBook(removeButton.getAttribute("data-BookID"));
@@ -62,13 +65,31 @@ function addRemoveBookButton(row, index) {
   cell.appendChild(removeButton);
 }
 
-function addCompletedCheckbox(row) {
+function addCompletedCheckbox(row, index) {
   const completedCheckbox = document.createElement("input");
   completedCheckbox.type = "checkbox";
   completedCheckbox.id = "completed";
   completedCheckbox.name = "completed";
+  if (myLibrary[index].read) {
+    completedCheckbox.checked = true;
+  }
+  completedCheckbox.setAttribute("data-BookID", index);
+  completedCheckbox.addEventListener("click", () => {
+    checkIfRead(
+      completedCheckbox,
+      completedCheckbox.getAttribute("data-BookID")
+    );
+  });
   const cell = row.insertCell();
   cell.appendChild(completedCheckbox);
+}
+
+function checkIfRead(checkbox, BookID) {
+  if (checkbox.checked) {
+    myLibrary[BookID].read = true;
+  } else {
+    myLibrary[BookID].read = false;
+  }
 }
 
 function removeBook(index) {
