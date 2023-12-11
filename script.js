@@ -7,6 +7,13 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.toggleRead = function(checkbox) {
+    if (checkbox.checked) {
+      this.read = true;
+    } else {
+      this.read = false;
+    }
+  }
 }
 
 function addBookToLibrary() {
@@ -75,21 +82,10 @@ function addCompletedCheckbox(row, index) {
   }
   completedCheckbox.setAttribute("data-BookID", index);
   completedCheckbox.addEventListener("click", () => {
-    checkIfRead(
-      completedCheckbox,
-      completedCheckbox.getAttribute("data-BookID")
-    );
+    myLibrary[completedCheckbox.getAttribute("data-BookID")].toggleRead(completedCheckbox);
   });
   const cell = row.insertCell();
   cell.appendChild(completedCheckbox);
-}
-
-function checkIfRead(checkbox, BookID) {
-  if (checkbox.checked) {
-    myLibrary[BookID].read = true;
-  } else {
-    myLibrary[BookID].read = false;
-  }
 }
 
 function removeBook(index) {
