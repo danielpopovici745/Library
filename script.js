@@ -7,17 +7,19 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.toggleRead = function(checkbox) {
-    if (checkbox.checked) {
-      this.read = true;
-    } else {
-      this.read = false;
-    }
+}
+
+Book.prototype.toggleRead = function (checkbox) {
+  if (checkbox.checked) {
+    this.read = true;
+  } else {
+    this.read = false;
   }
-  this.remove = function(index) {
-    myLibrary.splice(index, 1);
-    updateTable();
-  }
+}
+
+Book.prototype.remove = function (index) {
+  myLibrary.splice(index, 1);
+  updateTable();
 }
 
 function addBookToLibrary() {
