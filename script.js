@@ -37,7 +37,7 @@ function addBookToLibrary() {
   ) {
     // create an object with the values from bookFormArrayValues
 
-    const bookRead = document.querySelector("#formCompleted").checked;
+    const bookRead = document.querySelector("#completed").checked;
     const book = new Book(
       bookFormArrayValues[0],
       bookFormArrayValues[1],
@@ -80,7 +80,7 @@ function addRemoveBookButton(row, index) {
 function addCompletedCheckbox(row, index) {
   const completedCheckbox = document.createElement("input");
   completedCheckbox.type = "checkbox";
-  completedCheckbox.id = "completed";
+  completedCheckbox.id = `completed${index}`;
   completedCheckbox.name = "completed";
   if (myLibrary[index].read) {
     completedCheckbox.checked = true;
