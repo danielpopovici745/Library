@@ -14,6 +14,10 @@ function Book(title, author, pages, read) {
       this.read = false;
     }
   }
+  this.remove = function(index) {
+    myLibrary.splice(index, 1);
+    updateTable();
+  }
 }
 
 function addBookToLibrary() {
@@ -62,11 +66,10 @@ function updateTable() {
 function addRemoveBookButton(row, index) {
   const cell = row.insertCell();
   const removeButton = document.createElement("button");
-  removeButton.setAttribute("data-BookID", index);
   removeButton.textContent = "Remove";
   // calls removeBook and passes into it the data attribute of the button that was pressed
   removeButton.addEventListener("click", () => {
-    removeBook(removeButton.getAttribute("data-BookID"));
+    myLibrary[index].remove(index);
   });
   // appends the button to the new cell created in the row
   cell.appendChild(removeButton);
@@ -80,9 +83,8 @@ function addCompletedCheckbox(row, index) {
   if (myLibrary[index].read) {
     completedCheckbox.checked = true;
   }
-  completedCheckbox.setAttribute("data-BookID", index);
   completedCheckbox.addEventListener("click", () => {
-    myLibrary[completedCheckbox.getAttribute("data-BookID")].toggleRead(completedCheckbox);
+    myLibrary[index].toggleRead(completedCheckbox);
   });
   const cell = row.insertCell();
   cell.appendChild(completedCheckbox);
